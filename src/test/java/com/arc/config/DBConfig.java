@@ -2,6 +2,7 @@ package com.arc.config;
 
 import com.arc.entity.Account;
 import com.arc.entity.Client;
+import com.arc.tracker.SqlQueryInterceptor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,16 +37,26 @@ public class DBConfig {
     private String dbPassword;
 
     @Value("${hibernate.dialect}")
-    private String hDialect;
+    private String dialect;
 
     @Value("${hibernate.hbm2ddl.auto}")
-    private String hHBM2dll;
+    private String hbm2dll;
 
     @Value("${hibernate.format_sql}")
-    private String hFormatSql;
+    private String formatSql;
 
     @Value("${hibernate.show_sql}")
-    private String hShowSql;
+    private String showSql;
+
+    @Value("${hibernate.use_sql_comments}")
+    private String useSqlComments;
+
+    @Value("${hibernate.cache.use_second_level_cache}")
+    private String userL2Cache;
+
+    @Value("${hibernate.cache.use_query_cache}")
+    private String useQueryCache;
+
 
     @Bean
     public DataSource dataSource() {
@@ -59,13 +70,18 @@ public class DBConfig {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
 
         Properties hibernateProps = new Properties();
-        hibernateProps.put(Environment.DIALECT, hDialect);
-        hibernateProps.put(Environment.HBM2DDL_AUTO, hHBM2dll);
-        hibernateProps.put(Environment.FORMAT_SQL, hFormatSql);
-        hibernateProps.put(Environment.SHOW_SQL, hShowSql);
+        hibernateProps.put(Environment.DIALECT, dialect);
+        hibernateProps.put(Environment.HBM2DDL_AUTO, hbm2dll);
+        hibernateProps.put(Environment.FORMAT_SQL, formatSql);
+        hibernateProps.put(Environment.SHOW_SQL, showSql);
+        hibernateProps.put(Environment.USE_SQL_COMMENTS, useSqlComments);
+        hibernateProps.put(Environment.USE_SECOND_LEVEL_CACHE, userL2Cache);
+        hibernateProps.put(Environment.USE_QUERY_CACHE, useQueryCache);
+        hibernateProps.put(Environment.GENERATE_STATISTICS, useQueryCache);
 
         builder.addProperties(hibernateProps);
         builder.addAnnotatedClasses(Account.class, Client.class);
+        builder.setInterceptor(new SqlQueryInterceptor());
 
         return builder.buildSessionFactory();
     }

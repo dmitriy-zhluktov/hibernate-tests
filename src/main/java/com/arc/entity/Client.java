@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_client")
     private Integer id;
 

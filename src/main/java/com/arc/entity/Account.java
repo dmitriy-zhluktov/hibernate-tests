@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Setter
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id_account")
     private Integer id;
 
