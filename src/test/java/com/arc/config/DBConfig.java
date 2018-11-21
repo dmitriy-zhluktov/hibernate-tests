@@ -36,7 +36,7 @@ public class DBConfig {
     @Value("${mysql.password}")
     private String dbPassword;
 
-    @Value("${hibernate.dialect}")
+    /*@Value("${hibernate.dialect}")
     private String dialect;
 
     @Value("${hibernate.hbm2ddl.auto}")
@@ -55,7 +55,7 @@ public class DBConfig {
     private String userL2Cache;
 
     @Value("${hibernate.cache.use_query_cache}")
-    private String useQueryCache;
+    private String useQueryCache;*/
 
 
     @Bean
@@ -69,7 +69,7 @@ public class DBConfig {
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
 
-        Properties hibernateProps = new Properties();
+        /*Properties hibernateProps = new Properties();
         hibernateProps.put(Environment.DIALECT, dialect);
         hibernateProps.put(Environment.HBM2DDL_AUTO, hbm2dll);
         hibernateProps.put(Environment.FORMAT_SQL, formatSql);
@@ -79,7 +79,7 @@ public class DBConfig {
         hibernateProps.put(Environment.USE_QUERY_CACHE, useQueryCache);
         hibernateProps.put(Environment.GENERATE_STATISTICS, useQueryCache);
 
-        builder.addProperties(hibernateProps);
+        builder.addProperties(hibernateProps);*/
         builder.addAnnotatedClasses(Account.class, Client.class);
         builder.setInterceptor(new SqlQueryInterceptor());
 
