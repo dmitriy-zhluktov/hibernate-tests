@@ -1,6 +1,6 @@
-package com.arc.npo;
+package com.arc.tests.npo;
 
-import com.arc.BaseTest;
+import com.arc.tests.BaseTest;
 import com.arc.entity.npo.Client;
 import com.arc.tracker.AssertSqlCount;
 import lombok.extern.slf4j.Slf4j;
@@ -11,23 +11,34 @@ import java.util.List;
 @Slf4j
 public class NPlusOneTest extends BaseTest {
 
+    /**
+     * FetchType.LAZY
+     */
     @Test
     public void testNPO1() {
         List<Client> clients = session.createQuery("select c from com.arc.entity.npo.Client c where c.age > :age")
                 .setParameter("age", 18)
                 .list();
         clients.forEach( p -> log.info(p.getName() + " has " + p.getAccounts().size() + " accounts"));
-        // failed because of lazy
+        // failed
         AssertSqlCount.assertSelectCount(1);
     }
 
+    /**
+     * FetchType.LAZY, but join fetch
+     */
     @Test
     public void testNPOFetch() {
         List<Client> clients = session.createQuery("select c from com.arc.entity.npo.Client c join fetch c.accounts where c.age > :age")
                 .setParameter("age", 18)
                 .list();
         clients.forEach( p -> log.info(p.getName() + " has " + p.getAccounts().size() + " accounts"));
-        // passed because of join fetch
+        // passed
         AssertSqlCount.assertSelectCount(1);
+    }
+
+    @Test
+    public void testNPOSubselect() {
+
     }
 }

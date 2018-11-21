@@ -44,6 +44,8 @@ public class DBConfig {
 
         builder.addAnnotatedClasses(com.arc.entity.Account.class, com.arc.entity.Client.class);
         builder.addAnnotatedClasses(com.arc.entity.npo.Account.class, com.arc.entity.npo.Client.class);
+        builder.addAnnotatedClasses(com.arc.entity.subselect.Account.class, com.arc.entity.subselect.Client.class);
+        builder.addAnnotatedClasses(com.arc.entity.batchfetch.Account.class, com.arc.entity.batchfetch.Client.class);
 
         return builder.buildSessionFactory();
     }
