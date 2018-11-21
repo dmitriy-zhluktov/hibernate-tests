@@ -1,8 +1,5 @@
 package com.arc.config;
 
-import com.arc.entity.Account;
-import com.arc.entity.Client;
-import com.arc.tracker.SqlQueryInterceptor;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -45,8 +42,8 @@ public class DBConfig {
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
 
-        builder.addAnnotatedClasses(Account.class, Client.class);
-        builder.setInterceptor(new SqlQueryInterceptor());
+        builder.addAnnotatedClasses(com.arc.entity.Account.class, com.arc.entity.Client.class);
+        builder.addAnnotatedClasses(com.arc.entity.npo.Account.class, com.arc.entity.npo.Client.class);
 
         return builder.buildSessionFactory();
     }

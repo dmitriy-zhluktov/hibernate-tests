@@ -24,7 +24,7 @@ public class BaseTest {
 
     @Autowired
     private SessionFactory sessionFactory;
-    private Session session;
+    protected Session session;
 
     @Before
     public void before() {
