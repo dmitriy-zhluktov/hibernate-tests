@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@BatchSize(size = 2)
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

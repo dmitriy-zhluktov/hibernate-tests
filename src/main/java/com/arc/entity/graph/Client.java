@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NamedEntityGraphs({
         @NamedEntityGraph(name = Client.ACCOUNTS_GRAPH,
-            attributeNodes = @NamedAttributeNode("account"))
+            attributeNodes = @NamedAttributeNode("accounts"))
 })
 public class Client {
     public static final String ACCOUNTS_GRAPH = "Client[accounts]";

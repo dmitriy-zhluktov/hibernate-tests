@@ -13,7 +13,7 @@ import java.util.List;
 public class BatchFetchTest extends BaseTest {
 
     /**
-     * Client has @BatchSize(size = 2)
+     * Field Client.account has @BatchSize(size = 2)
      */
     @Test
     public void testBatchFetch() {
@@ -27,6 +27,7 @@ public class BatchFetchTest extends BaseTest {
     /**
      * blind guess
      * doesn't work :(
+     * UPD it works, if set @BatchSize(size = 2) for class Client
      */
     @Test
     public void testBlindGuess() {
