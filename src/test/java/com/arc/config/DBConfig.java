@@ -4,7 +4,6 @@ import com.arc.entity.Account;
 import com.arc.entity.Client;
 import com.arc.tracker.SqlQueryInterceptor;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,46 +16,23 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 public class DBConfig {
 
-    @Value("${mysql.driver}")
+    @Value("${db.driver}")
     private String dbDriver;
 
-    @Value("${mysql.url}")
+    @Value("${db.url}")
     private String dbUrl;
 
-    @Value("${mysql.user}")
+    @Value("${db.user}")
     private String dbUser;
 
-    @Value("${mysql.password}")
+    @Value("${db.password}")
     private String dbPassword;
-
-    /*@Value("${hibernate.dialect}")
-    private String dialect;
-
-    @Value("${hibernate.hbm2ddl.auto}")
-    private String hbm2dll;
-
-    @Value("${hibernate.format_sql}")
-    private String formatSql;
-
-    @Value("${hibernate.show_sql}")
-    private String showSql;
-
-    @Value("${hibernate.use_sql_comments}")
-    private String useSqlComments;
-
-    @Value("${hibernate.cache.use_second_level_cache}")
-    private String userL2Cache;
-
-    @Value("${hibernate.cache.use_query_cache}")
-    private String useQueryCache;*/
-
 
     @Bean
     public DataSource dataSource() {
@@ -69,17 +45,6 @@ public class DBConfig {
     public SessionFactory sessionFactory() {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
 
-        /*Properties hibernateProps = new Properties();
-        hibernateProps.put(Environment.DIALECT, dialect);
-        hibernateProps.put(Environment.HBM2DDL_AUTO, hbm2dll);
-        hibernateProps.put(Environment.FORMAT_SQL, formatSql);
-        hibernateProps.put(Environment.SHOW_SQL, showSql);
-        hibernateProps.put(Environment.USE_SQL_COMMENTS, useSqlComments);
-        hibernateProps.put(Environment.USE_SECOND_LEVEL_CACHE, userL2Cache);
-        hibernateProps.put(Environment.USE_QUERY_CACHE, useQueryCache);
-        hibernateProps.put(Environment.GENERATE_STATISTICS, useQueryCache);
-
-        builder.addProperties(hibernateProps);*/
         builder.addAnnotatedClasses(Account.class, Client.class);
         builder.setInterceptor(new SqlQueryInterceptor());
 
